@@ -1,0 +1,6 @@
+@HotDesks_HostAddress = http://localhost:5118
+
+GET {{HotDesks_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
