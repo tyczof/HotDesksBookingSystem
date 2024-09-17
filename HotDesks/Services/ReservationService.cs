@@ -15,7 +15,7 @@ namespace HotDesks.Services
 
         public IEnumerable<Reservation> GetAll()
         {
-            return _context.Reservations.Include(r => r.Desk).Include(r => r.Employee).ToList();
+            return _context.Reservations.ToList();
         }
 
         public Reservation GetById(int id)

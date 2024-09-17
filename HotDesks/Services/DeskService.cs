@@ -15,21 +15,17 @@ namespace HotDesks.Services
 
         public IEnumerable<Desk> GetAll()
         {
-            return _context.Desks.ToList();
+            return _context.Desks.Include(d => d.Reservations).ToList();
         }
 
-        public Desk GetById(int id)
+        public Desk GetByDeskNumber(string deskNumber)
         {
-            return _context.Desks.Include(d => d.Location).FirstOrDefault(d => d.Id == id);
+            return _context.Desks.FirstOrDefault(d => d.DeskNumber == deskNumber);
         }
 
         public void AddDesk(DeskDTO deskDTO)
         {
-            var desk = new Desk
-            {
-                LocationId = deskDTO.LocationId,
-                DeskNumber = deskDTO.DeskNumber
-            };
+            var desk = new Desk(deskDTO.DeskNumber, deskDTO.IsAvailable, deskDTO.LocationId);
             _context.Desks.Add(desk);
             _context.SaveChanges();
         }
@@ -39,8 +35,9 @@ namespace HotDesks.Services
             var desk = _context.Desks.Find(id);
             if (desk != null)
             {
-                desk.LocationId = deskDTO.LocationId;
                 desk.DeskNumber = deskDTO.DeskNumber;
+                desk.IsAvailable = deskDTO.IsAvailable;
+                desk.LocationId = deskDTO.LocationId;
                 _context.SaveChanges();
             }
         }

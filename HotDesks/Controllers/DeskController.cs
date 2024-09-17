@@ -19,7 +19,8 @@ namespace HotDesks.Controllers
         [HttpGet]
         public IActionResult GetDesks()
         {
-            return Ok(_deskService.GetAll());
+            var desks = _deskService.GetAll();
+            return desks.Any() ? Ok(desks) : NotFound();
         }
 
         [HttpPost]

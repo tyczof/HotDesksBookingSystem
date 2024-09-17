@@ -27,7 +27,8 @@ namespace HotDesks.Services
         {
             var employee = new Employee
             {
-                Name = employeeDto.Name,
+                FirstName = employeeDto.FirstName,
+                LastName = employeeDto.LastName,
                 Email = employeeDto.Email
             };
             _context.Employees.Add(employee);
@@ -39,7 +40,8 @@ namespace HotDesks.Services
             var employee = _context.Employees.Find(id);
             if (employee != null)
             {
-                employee.Name = employeeDto.Name;
+                employee.FirstName = employeeDto.FirstName;
+                employee.LastName = employeeDto.LastName;
                 employee.Email = employeeDto.Email;
                 _context.SaveChanges();
             }

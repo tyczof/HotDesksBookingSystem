@@ -15,7 +15,7 @@ namespace HotDesks.Services
 
         public IEnumerable<Location> GetAll()
         {
-            return _context.Locations.ToList();
+            return _context.Locations.Include(l => l.Desks).ToList();
         }
 
         public Location GetById(int id)

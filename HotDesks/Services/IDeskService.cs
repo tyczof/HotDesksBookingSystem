@@ -6,7 +6,7 @@ namespace HotDesks.Services
     public interface IDeskService
     {
         IEnumerable<Desk> GetAll();
-        Desk GetById(int id);
+        Desk GetByDeskNumber(string deskNumber);
         void AddDesk(DeskDTO deskDto);
         void UpdateDesk(int id, DeskDTO deskDto);
         void RemoveDesk(int id);
