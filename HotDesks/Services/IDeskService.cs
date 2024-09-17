@@ -10,6 +10,7 @@ namespace HotDesks.Services
         void AddDesk(DeskDTO deskDto);
         void UpdateDesk(int id, DeskDTO deskDto);
         void RemoveDesk(int id);
+        void DisableDesk(int id);
     }
 
 }

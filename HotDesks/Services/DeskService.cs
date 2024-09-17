@@ -1,6 +1,7 @@
 ﻿using HotDesks.DTOs;
 using HotDesks.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HotDesks.Services
 {
@@ -44,10 +45,24 @@ namespace HotDesks.Services
 
         public void RemoveDesk(int id)
         {
+            var desk = _context.Desks.Include(d => d.Reservations).FirstOrDefault(d => d.Id == id);
+            var upcomingReservations = desk.Reservations.Where(d => d.StartDate >= DateTime.Now);
+            if (desk != null && upcomingReservations.IsNullOrEmpty())
+            {
+                _context.Desks.Remove(desk);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot remove desk if desk have an upcoming reservation.");
+            }
+        }
+        public void DisableDesk(int id)
+        {
             var desk = _context.Desks.Find(id);
             if (desk != null)
             {
-                _context.Desks.Remove(desk);
+                desk.IsAvailable = false;
                 _context.SaveChanges();
             }
         }

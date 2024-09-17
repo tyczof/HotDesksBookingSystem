@@ -40,7 +40,20 @@ namespace HotDesks.Controllers
         [HttpDelete("{id}")]
         public IActionResult RemoveDesk(int id)
         {
-            _deskService.RemoveDesk(id);
+            try
+            {
+                _deskService.RemoveDesk(id);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("disabledesk/{id}")]
+        public IActionResult DisableDesk(int id)
+        {
+            _deskService.DisableDesk(id);
             return Ok();
         }
     }
