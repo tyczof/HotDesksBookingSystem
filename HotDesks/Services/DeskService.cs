@@ -18,6 +18,23 @@ namespace HotDesks.Services
         {
             return _context.Desks.Include(d => d.Reservations).ToList();
         }
+        public IEnumerable<Desk> GetAvailableDesks(DateTime startDate, DateTime endDate, int locationId)
+        {
+            var availableDesks = _context.Desks
+                    .Include(d => d.Reservations)
+                    .Where(d =>  d.IsAvailable && // Desk must be marked as available
+                                !d.Reservations.Any(r => r.StartDate <= endDate && r.EndDate >= startDate)) // No reservations in the range
+                    .ToList();
+            if (locationId > 0)
+            {
+                return availableDesks.Where(d => d.LocationId == locationId);
+            }
+            else
+            {
+                return availableDesks;
+            }
+        }
+
 
         public Desk GetByDeskNumber(string deskNumber)
         {
