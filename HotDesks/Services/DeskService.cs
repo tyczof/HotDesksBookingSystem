@@ -46,15 +46,23 @@ namespace HotDesks.Services
         public void RemoveDesk(int id)
         {
             var desk = _context.Desks.Include(d => d.Reservations).FirstOrDefault(d => d.Id == id);
-            var upcomingReservations = desk.Reservations.Where(d => d.StartDate >= DateTime.Now);
-            if (desk != null && upcomingReservations.IsNullOrEmpty())
+            if (desk != null)
             {
-                _context.Desks.Remove(desk);
-                _context.SaveChanges();
+                var upcomingReservations = desk.Reservations.Where(d => d.StartDate >= DateTime.Now);
+                if (upcomingReservations.IsNullOrEmpty())
+                {
+                    _context.Desks.Remove(desk);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    throw new InvalidOperationException("Cannot remove desk if desk have an upcoming reservation.");
+                }
+
             }
             else
             {
-                throw new InvalidOperationException("Cannot remove desk if desk have an upcoming reservation.");
+                throw new InvalidOperationException("Desk does not exist.");
             }
         }
         public void DisableDesk(int id)
