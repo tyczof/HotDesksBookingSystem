@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Desk } from '../../../../models/desk.model';
 import { ReservationService } from '../../../../services/reservation.service'; // Serwis do rezerwacji
 import { Reservation } from '../../../../models/reservation.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-desk-item',
@@ -14,10 +15,12 @@ export class DeskItemComponent {
   @Input() startDate!: string; 
   @Input() endDate!: string; 
 
+  errorMessage: string = '';
+
   constructor(private reservationService: ReservationService) {}
 
   reserveDesk(): void {
-    console.log(this.startDate + ' ' + this.endDate + ' ' + this.employeeId + ' ' + this.desk.id)
+
     if (!this.desk.isReservedOnDate) {
       const reservation: Reservation = {
         deskId: this.desk.id,
@@ -30,9 +33,16 @@ export class DeskItemComponent {
         next: (response) => {
           console.log(`Desk ${this.desk.deskNumber} reserved successfully!`);
           this.desk.isReservedOnDate = true;
+          this.errorMessage='';
         },
-        error: (error) => {
-          console.error('Error during reservation:', error);
+        error: (error: HttpErrorResponse) => {
+          if (error.error instanceof ErrorEvent) {
+            // Klient-side error
+            this.errorMessage = 'An error occurred: ' + error.error.message;
+          } else {
+            // Server-side error
+            this.errorMessage = error.error;
+          }
         }
       });
     }

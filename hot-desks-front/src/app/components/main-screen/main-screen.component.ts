@@ -17,11 +17,16 @@ export class MainScreenComponent {
   locations: Location[] = [];
   employeeId: number = 1;
 
+  today: string = '';
+
   constructor(private locationService: LocationService) {}
 
   @ViewChild(DeskListComponent) deskList!: DeskListComponent;
 
   ngOnInit(): void {
+    const todayDate = new Date();
+    this.today = this.formatDate(todayDate);
+
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1); // Następny dzień
 
