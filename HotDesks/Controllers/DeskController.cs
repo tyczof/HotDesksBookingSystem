@@ -2,6 +2,7 @@
 using HotDesks.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 
 namespace HotDesks.Controllers
 {

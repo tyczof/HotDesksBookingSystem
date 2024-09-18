@@ -25,8 +25,15 @@ namespace HotDesks.Controllers
         [HttpPost]
         public IActionResult AddReservation([FromBody] ReservationDTO reservationDto)
         {
-            _reservationService.AddReservation(reservationDto);
-            return Ok();
+            try
+            {
+                _reservationService.AddReservation(reservationDto);
+                return Ok(reservationDto);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
