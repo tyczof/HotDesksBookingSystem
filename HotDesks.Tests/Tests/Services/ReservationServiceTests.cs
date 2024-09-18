@@ -1,6 +1,4 @@
-﻿using Moq;
-using Xunit;
-using HotDesks.Services;
+﻿using HotDesks.Services;
 using HotDesks.Models;
 using HotDesks.DTOs;
 using Microsoft.EntityFrameworkCore;
@@ -12,22 +10,24 @@ namespace HotDesks.Tests.Tests.Services
         [Fact]
         public void AddReservation_ShouldThrowException_IfDeskIsNotAvailable()
         {
-            // Arrange
             var options = new DbContextOptionsBuilder<HotDeskContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
 
             var context = new HotDeskContext(options);
 
-            // Dodaj biurko i istniejącą rezerwację
+            // Add desk with reservation
             var desk = new Desk
             {
                 Id = 1,
+                DeskNumber = "A1",
                 IsAvailable = true,
                 Reservations = new List<Reservation>
                 {
                     new Reservation
                     {
+                        EmployeeId = 1,
+                        DeskId = 1,
                         StartDate = DateTime.Now,
                         EndDate = DateTime.Now.AddDays(2)
                     }
@@ -37,15 +37,14 @@ namespace HotDesks.Tests.Tests.Services
             context.Desks.Add(desk);
             context.SaveChanges();
 
-            // Utwórz serwis
-            var deskService = new DeskService(context);
             var reservationService = new ReservationService(context);
 
+            //create new reservation to add
             var newReservationDTO = new ReservationDTO
             {
                 DeskId = 1,
                 EmployeeId = 1,
-                StartDate = DateTime.Now.AddDays(1), // Konflikt z istniejącą rezerwacją
+                StartDate = DateTime.Now.AddDays(1),
                 EndDate = DateTime.Now.AddDays(3)
             };
 
@@ -53,7 +52,7 @@ namespace HotDesks.Tests.Tests.Services
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 reservationService.AddReservation(newReservationDTO));
 
-            Assert.Equal("Desk is not available in the selected time range.", exception.Message);
+            Assert.Equal("Desk is not available for the selected dates.", exception.Message);
         }
     }
 }
