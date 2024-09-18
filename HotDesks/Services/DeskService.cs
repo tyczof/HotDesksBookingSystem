@@ -29,7 +29,7 @@ namespace HotDesks.Services
                         IsAvailable = d.IsAvailable,
                         LocationId = d.LocationId,
                         LocationName = d.Location.Name,
-                        IsReservedOnDate = d.Reservations.Any(r => r.StartDate <= endDate && r.EndDate >= startDate)  // Sprawdzenie, czy biurko jest zarezerwowane w danym okresie
+                        IsReservedOnDate = d.CheckIfReservedOnDate(startDate, endDate),
                     })
                     .ToList();
             if (locationId > 0)

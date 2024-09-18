@@ -23,18 +23,31 @@ namespace HotDesks.Services
             return _context.Reservations.Include(r => r.Desk).Include(r => r.Employee).FirstOrDefault(r => r.Id == id);
         }
 
-        public void AddReservation(ReservationDTO reservationDTO)
+        public void AddReservation(ReservationDTO reservationDto)
         {
-            var reservation = new Reservation
-            {
-                DeskId = reservationDTO.DeskId,
-                EmployeeId = reservationDTO.EmployeeId,
-                StartDate = reservationDTO.StartDate,
-                EndDate = reservationDTO.EndDate
-            };
-            _context.Reservations.Add(reservation);
-            _context.SaveChanges();
-        }
+                // Validate the reservation range
+                if ((reservationDto.EndDate - reservationDto.StartDate).TotalDays > 7)
+                    throw new InvalidOperationException("Cannot book for more than 7 days.");
+
+                // Check if the desk is available in that range
+                var desk = _context.Desks.Include(d => d.Reservations).Where(d => d.Id == reservationDto.DeskId).FirstOrDefault();
+                var isAvailable = desk != null && !desk.CheckIfReservedOnDate(reservationDto.StartDate, reservationDto.EndDate);
+
+                if (!isAvailable)
+                    throw new InvalidOperationException("Desk is not available for the selected dates.");
+
+                // Create reservation
+                var reservation = new Reservation
+                {
+                    DeskId = reservationDto.DeskId,
+                    EmployeeId = reservationDto.EmployeeId,
+                    StartDate = reservationDto.StartDate,
+                    EndDate = reservationDto.EndDate
+                };
+
+                _context.Reservations.Add(reservation);
+                _context.SaveChanges();
+            }
 
         public void CancelReservation(int id)
         {
