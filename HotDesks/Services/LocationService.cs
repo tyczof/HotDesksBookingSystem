@@ -15,12 +15,12 @@ namespace HotDesks.Services
 
         public IEnumerable<Location> GetAll()
         {
-            return _context.Locations.Include(l => l.Desks).ToList();
+            return _context.Locations.Include(l => l.Desks).ThenInclude(d => d.Reservations).ToList();
         }
 
         public Location GetById(int id)
         {
-            return _context.Locations.Include(l => l.Desks).FirstOrDefault(l => l.Id == id);
+            return _context.Locations.Include(l => l.Desks).ThenInclude(d => d.Reservations).FirstOrDefault(l => l.Id == id);
         }
 
         public void AddLocation(LocationDTO locationDto)

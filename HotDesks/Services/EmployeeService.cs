@@ -29,7 +29,8 @@ namespace HotDesks.Services
             {
                 FirstName = employeeDto.FirstName,
                 LastName = employeeDto.LastName,
-                Email = employeeDto.Email
+                Email = employeeDto.Email,
+                IsAdmin = employeeDto.IsAdmin,
             };
             _context.Employees.Add(employee);
             _context.SaveChanges();
@@ -43,6 +44,7 @@ namespace HotDesks.Services
                 employee.FirstName = employeeDto.FirstName;
                 employee.LastName = employeeDto.LastName;
                 employee.Email = employeeDto.Email;
+                employee.IsAdmin = employeeDto.IsAdmin;
                 _context.SaveChanges();
             }
         }
