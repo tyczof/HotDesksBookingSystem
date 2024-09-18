@@ -35,6 +35,19 @@ namespace HotDesks.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPut("{id}")]
+        public IActionResult UpdateReservation(int id, [FromBody] ReservationDTO reservationDto)
+        {
+            try
+            {
+                _reservationService.UpdateReservation(id, reservationDto);
+                return Ok(reservationDto);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpDelete("{id}")]
         public IActionResult CancelReservation(int id)
