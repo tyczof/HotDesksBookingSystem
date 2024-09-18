@@ -6,11 +6,12 @@ namespace HotDesks.Models
     {
         public int Id { get; set; }
         public string DeskNumber { get; set; }
-        public bool IsAvailable { get; set; }
+        public bool IsAvailable { get; set; } //permanent availability flag
         public int LocationId { get; set; }
         [JsonIgnore]
         public Location Location { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
+
 
         public Desk(string deskNumber, bool isAvailable, int locationId)
         {
@@ -24,6 +25,10 @@ namespace HotDesks.Models
         {
             Id = new int();
             Reservations = new List<Reservation>();
+        }
+        public bool CheckIfReservedOnDate(DateTime startDate, DateTime endDate)
+        {
+            return Reservations.Any(r => r.StartDate <= endDate && r.EndDate >= startDate);
         }
     }
 }
