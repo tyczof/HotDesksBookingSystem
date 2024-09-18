@@ -6,7 +6,7 @@ namespace HotDesks.Models
     {
         public int Id { get; set; }
         public string DeskNumber { get; set; }
-        public bool IsAvailable { get; set; }
+        public bool IsAvailable { get; set; } //permanent availability flag
         public int LocationId { get; set; }
         [JsonIgnore]
         public Location Location { get; set; }

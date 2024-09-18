@@ -18,6 +18,30 @@ namespace HotDesks.Services
         {
             return _context.Desks.Include(d => d.Reservations).ToList();
         }
+        public IEnumerable<DeskInfoDTO> GetDesksWithReservationStatus(DateTime startDate, DateTime endDate, int locationId)
+        {
+            var deskDtos = _context.Desks
+                    .Include(d => d.Reservations)
+                    .Select(d => new DeskInfoDTO
+                    {
+                        Id = d.Id,
+                        DeskNumber = d.DeskNumber,
+                        IsAvailable = d.IsAvailable,
+                        LocationId = d.LocationId,
+                        LocationName = d.Location.Name,
+                        IsReservedOnDate = d.Reservations.Any(r => r.StartDate <= endDate && r.EndDate >= startDate)  // Sprawdzenie, czy biurko jest zarezerwowane w danym okresie
+                    })
+                    .ToList();
+            if (locationId > 0)
+            {
+                return deskDtos.Where(d => d.LocationId == locationId);
+            }
+            else
+            {
+                return deskDtos;
+            }
+        }
+
 
         public Desk GetByDeskNumber(string deskNumber)
         {

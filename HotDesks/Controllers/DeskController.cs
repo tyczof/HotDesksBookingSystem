@@ -22,6 +22,20 @@ namespace HotDesks.Controllers
             var desks = _deskService.GetAll();
             return desks.Any() ? Ok(desks) : NotFound();
         }
+        [HttpGet("available")]
+        public IActionResult GetDesksWithReservationStatus(DateTime startDate, DateTime endDate, int locationId = 0)
+        {
+            try
+            {
+                var desks = _deskService.GetDesksWithReservationStatus(startDate, endDate, locationId);
+
+                return Ok(desks);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost]
         public IActionResult AddDesk([FromBody] DeskDTO deskDto)
