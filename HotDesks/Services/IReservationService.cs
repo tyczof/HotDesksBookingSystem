@@ -8,6 +8,7 @@ namespace HotDesks.Services
         IEnumerable<Reservation> GetAll();
         Reservation GetById(int id);
         void AddReservation(ReservationDTO reservationDto);
+        void UpdateReservation(int id, ReservationDTO reservationDto);
         void CancelReservation(int id);
     }
 
