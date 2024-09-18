@@ -23,18 +23,16 @@ namespace HotDesks.Controllers
             return desks.Any() ? Ok(desks) : NotFound();
         }
         [HttpGet("available")]
-        public IActionResult GetAvailableDesks(DateTime startDate, DateTime endDate, int locationId = 0)
+        public IActionResult GetDesksWithReservationStatus(DateTime startDate, DateTime endDate, int locationId = 0)
         {
             try
             {
-                var desks = _deskService.GetAvailableDesks(startDate, endDate, locationId);
+                var desks = _deskService.GetDesksWithReservationStatus(startDate, endDate, locationId);
 
-                // Return OK (200) with the available desks
                 return Ok(desks);
             }
             catch (Exception ex)
             {
-                // In case of an error, return a BadRequest (400) with the error message
                 return BadRequest(ex.Message);
             }
         }
