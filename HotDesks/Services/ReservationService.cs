@@ -35,10 +35,10 @@ namespace HotDesks.Services
                     EmployeeEmail = r.Employee.Email,
                     StartDate = r.StartDate,
                     EndDate = r.EndDate,
-                    ReservationStatus = r.GetReservationStatus()
+                    ReservationStatus = r.GetReservationStatus(false)
                 })
                 .ToList();
-            return reservationDtos;
+            return reservationDtos.OrderBy(r => r.ReservationStatus);
         }
 
         public Reservation GetById(int id)
@@ -73,16 +73,17 @@ namespace HotDesks.Services
             if (reservation == null)
                 throw new InvalidOperationException("Reservation not found.");
 
-            if ((reservation.StartDate - DateTime.Now).TotalHours < 24)
-                throw new InvalidOperationException("Cannot change reservation less than 24 hours before.");
+            if (reservation.GetReservationStatus(true) == ReservationStatus.Upcoming)
+            {
+                ConfirmDeskAvailability(reservationDto);
 
-            ConfirmDeskAvailability(reservationDto);
-
-            // Update desk in reservation
-            reservation.DeskId = reservationDto.DeskId;
-            reservation.StartDate = reservationDto.StartDate;
-            reservation.EndDate = reservationDto.EndDate;
-            _context.SaveChanges();
+                // Update desk in reservation
+                reservation.DeskId = reservationDto.DeskId;
+                reservation.StartDate = reservationDto.StartDate;
+                reservation.EndDate = reservationDto.EndDate;
+                _context.SaveChanges();
+            }
+            
         }
 
         public void CancelReservation(int id)

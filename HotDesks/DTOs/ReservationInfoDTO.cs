@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.Contracts;
+﻿using HotDesks.Models;
+using System.Diagnostics.Contracts;
+using System.Text.Json.Serialization;
 
 namespace HotDesks.DTOs
 {
@@ -13,6 +15,7 @@ namespace HotDesks.DTOs
         public string EmployeeEmail { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public string ReservationStatus { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ReservationStatus ReservationStatus { get; set; }
     }
 }

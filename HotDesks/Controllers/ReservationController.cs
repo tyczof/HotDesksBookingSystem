@@ -57,8 +57,15 @@ namespace HotDesks.Controllers
         [HttpPut("cancel/{id}")]
         public IActionResult CancelReservation(int id)
         {
-            _reservationService.CancelReservation(id);
-            return Ok();
+            try
+            {
+                _reservationService.CancelReservation(id);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 

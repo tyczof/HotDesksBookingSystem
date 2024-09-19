@@ -28,7 +28,7 @@ namespace HotDesks.Models
         }
         public bool CheckIfReservedOnDate(DateTime startDate, DateTime endDate)
         {
-            return Reservations.Any(r => r.StartDate <= endDate && r.EndDate >= startDate);
+            return Reservations.Where(r => !r.isCancelled).Any(r => r.StartDate <= endDate && r.EndDate >= startDate);
         }
     }
 }
