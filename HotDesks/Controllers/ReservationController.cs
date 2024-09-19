@@ -21,6 +21,11 @@ namespace HotDesks.Controllers
         {
             return Ok(_reservationService.GetAll());
         }
+        [HttpGet("employee/{employeeId}")]
+        public IActionResult GetEmployeeReservations(int employeeId)
+        {
+            return Ok(_reservationService.GetEmployeeReservations(employeeId));
+        }
 
         [HttpPost]
         public IActionResult AddReservation([FromBody] ReservationDTO reservationDto)
@@ -49,7 +54,7 @@ namespace HotDesks.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpPut("cancel/{id}")]
         public IActionResult CancelReservation(int id)
         {
             _reservationService.CancelReservation(id);
