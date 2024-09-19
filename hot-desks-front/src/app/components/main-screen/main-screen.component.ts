@@ -49,9 +49,6 @@ export class MainScreenComponent {
     return date.toISOString().substring(0, 10); // Format YYYY-MM-DD
   }
 
-  onEmployeeIdChange(newEmployeeId: number): void {
-    this.employeeId = newEmployeeId; // Aktualizacja employeeId
-  }
 
   searchDesks(): void {
     // Przekazanie wartości do komponentu desk-list

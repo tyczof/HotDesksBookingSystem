@@ -15,4 +15,9 @@
   app-role-switch {
     margin-left: auto;
   }
+
+  button {
+    cursor: pointer;
+  }
+  
   
