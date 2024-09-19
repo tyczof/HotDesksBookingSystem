@@ -1,0 +1,13 @@
+.main-container {
+    padding: 16px;
+  }
+  
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    app-role-switch {
+        margin-left: auto;
+    }
+}
+

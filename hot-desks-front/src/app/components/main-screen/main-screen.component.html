@@ -1,0 +1,47 @@
+<div class="main-container">
+
+  <form (ngSubmit)="searchDesks()">
+    <div>
+      <label for="startDate">Start Date:</label>
+      <input
+        type="date"
+        id="startDate"
+        [(ngModel)]="startDate"
+        name="startDate"
+        [min]="today"
+      />
+    </div>
+
+    <div>
+      <label for="startTime">Start Time:</label>
+      <input type="time" id="startTime" [(ngModel)]="startTime" name="startTime" />
+    </div>
+
+    <div>
+      <label for="endDate">End Date:</label>
+      <input
+        type="date"
+        id="endDate"
+        [(ngModel)]="endDate"
+        name="endDate"
+        [min]="startDate"
+      />
+    </div>
+
+    <div>
+      <label for="endTime">End Time:</label>
+      <input type="time" id="endTime" [(ngModel)]="endTime" name="endTime" />
+    </div>
+
+    <div>
+      <label for="location">Location:</label>
+      <select id="location" [(ngModel)]="locationId" name="locationId">
+        <option *ngFor="let location of locations" [value]="location.id">{{ location.name }}</option>
+      </select>
+    </div>
+
+    <button type="submit">Search Desks</button>
+  </form>
+
+  <app-desk-list [startDate]="startDate" [employeeId]="employeeId" [startTime]="startTime" [endDate]="endDate" [endTime]="endTime" [locationId]="locationId"></app-desk-list>
+</div>

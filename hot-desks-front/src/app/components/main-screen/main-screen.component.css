@@ -1,0 +1,23 @@
+.main-container {
+    padding: 16px;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  h1 {
+    margin: 0;
+  }
+  
+  app-role-switch {
+    margin-left: auto;
+  }
+
+  button {
+    cursor: pointer;
+  }
+  
+  

@@ -1,0 +1,13 @@
+<div class="main-container">
+    <header>
+        <h1>Hot Desks Booking System</h1>
+        <app-mode-switch (modeChange)="onModeChange($event)"></app-mode-switch>
+        <app-role-switch (employeeIdChange)="onEmployeeIdChange($event)"></app-role-switch>
+    </header>
+    <ng-container *ngIf="!isActive; else manageReservations">
+        <app-main-screen></app-main-screen>
+    </ng-container>
+    <ng-template #manageReservations>
+        <app-manage-my-reservations></app-manage-my-reservations>
+    </ng-template>
+</div>

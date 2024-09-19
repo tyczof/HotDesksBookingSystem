@@ -1,0 +1,10 @@
+<div class="desk-card">
+    <h3>Desk {{ desk.deskNumber }}</h3>
+    <p>Location: {{ desk.locationName }}</p>
+    <p>Status: {{ desk.isReservedOnDate ? 'Unavailable' : 'Available' }}</p>
+    <button (click)="reserveDesk()" [disabled]="desk.isReservedOnDate">Reserve</button>
+    <!-- Wyświetlamy błąd, jeśli istnieje -->
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
+
+  
