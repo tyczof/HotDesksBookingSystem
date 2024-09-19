@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Reservation } from '../../../models/reservation.model';
 import { ReservationService } from '../../../services/reservation.service';
+import { Employee } from '../../../models/employee.model';
 
 @Component({
   selector: 'app-manage-my-reservations',
@@ -9,7 +10,7 @@ import { ReservationService } from '../../../services/reservation.service';
 })
 export class ManageMyReservationsComponent implements OnInit {
   reservations: Reservation[] = [];
-  employeeId = 1;
+  @Input() employee!: Employee;
 
   constructor(private reservationService: ReservationService) {}
 
@@ -18,7 +19,7 @@ export class ManageMyReservationsComponent implements OnInit {
   }
 
   loadReservations(): void {
-    this.reservationService.getReservations(this.employeeId).subscribe(
+    this.reservationService.getReservations(this.employee.id).subscribe(
       (reservations) => {
         this.reservations = reservations;
       },
@@ -42,4 +43,19 @@ export class ManageMyReservationsComponent implements OnInit {
       );
     }
   }
+  changeDesk(reservation: Reservation, deskId: number): void {
+    const updatedReservation: Reservation = {
+      ...reservation,
+      deskId: deskId
+    };
+  
+    this.reservationService.updateReservationDesk(reservation.id!, updatedReservation).subscribe(
+      () => {
+        this.loadReservations();
+      },
+      (error) => {
+        console.error('Error updating reservation desk', error);
+      }
+    );
+  }  
 }

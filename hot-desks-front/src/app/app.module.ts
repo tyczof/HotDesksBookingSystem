@@ -13,6 +13,7 @@ import { ModeSwitchComponent } from './components/hot-desks/mode-switch/mode-swi
 import { ManageMyReservationsComponent } from './components/hot-desks/manage-my-reservations/manage-my-reservations.component';
 import { HotDesksComponent } from './components/hot-desks/hot-desks.component';
 import { ReservationComponent } from './components/hot-desks/manage-my-reservations/reservation/reservation.component';
+import { ChangeDeskFormComponent } from './components/hot-desks/manage-my-reservations/change-desk-form/change-desk-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ReservationComponent } from './components/hot-desks/manage-my-reservati
     ModeSwitchComponent,
     ManageMyReservationsComponent,
     HotDesksComponent,
-    ReservationComponent
+    ReservationComponent,
+    ChangeDeskFormComponent
   ],
   imports: [
     BrowserModule,

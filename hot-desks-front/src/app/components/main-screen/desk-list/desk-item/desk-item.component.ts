@@ -3,6 +3,7 @@ import { Desk } from '../../../../models/desk.model';
 import { ReservationService } from '../../../../services/reservation.service'; // Serwis do rezerwacji
 import { Reservation } from '../../../../models/reservation.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Employee } from '../../../../models/employee.model';
 
 @Component({
   selector: 'app-desk-item',
@@ -11,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class DeskItemComponent {
   @Input() desk!: Desk;
-  @Input() employeeId!: number;
+  @Input() employee!: Employee;
   @Input() startDate!: string; 
   @Input() endDate!: string; 
 
@@ -24,7 +25,7 @@ export class DeskItemComponent {
     if (!this.desk.isReservedOnDate) {
       const reservation: Reservation = {
         deskId: this.desk.id,
-        employeeId: this.employeeId,
+        employeeId: this.employee.id,
         startDate: new Date(this.startDate),
         endDate: new Date(this.endDate)
       };

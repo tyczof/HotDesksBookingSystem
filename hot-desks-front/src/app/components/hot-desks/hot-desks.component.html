@@ -2,12 +2,17 @@
     <header>
         <h1>Hot Desks Booking System</h1>
         <app-mode-switch (modeChange)="onModeChange($event)"></app-mode-switch>
-        <app-role-switch (employeeIdChange)="onEmployeeIdChange($event)"></app-role-switch>
+        <div class="corner-container">
+            <h5>Hello {{employee.firstName}}!</h5>
+            <ng-container *ngIf="!isActive;">
+                <app-role-switch (employeeChange)="onEmployeeChange($event)"></app-role-switch>
+            </ng-container>
+        </div>
     </header>
     <ng-container *ngIf="!isActive; else manageReservations">
-        <app-main-screen></app-main-screen>
+        <app-main-screen [employee]="employee"></app-main-screen>
     </ng-container>
     <ng-template #manageReservations>
-        <app-manage-my-reservations></app-manage-my-reservations>
+        <app-manage-my-reservations [employee]="employee"></app-manage-my-reservations>
     </ng-template>
 </div>

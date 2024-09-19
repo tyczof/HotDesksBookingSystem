@@ -23,4 +23,7 @@ export class ReservationService {
     return this.http.post<Reservation>(`${this.apiUrl}`, reservation);
   }
 
+  updateReservationDesk(id: number, updatedReservation: Reservation) {
+    return this.http.put<void>(`${this.apiUrl}/${id}`, updatedReservation);
+  }
 }

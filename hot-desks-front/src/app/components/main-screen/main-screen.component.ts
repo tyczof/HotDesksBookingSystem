@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { DeskListComponent } from './desk-list/desk-list.component';
 import { LocationService } from '../../services/location.service';
 import { Location } from '../../models/location.model';
+import { Employee } from '../../models/employee.model';
 
 @Component({
   selector: 'app-main-screen',
@@ -15,7 +16,7 @@ export class MainScreenComponent {
   endTime: string = '16:00'; 
   locationId: number = 0;
   locations: Location[] = [];
-  employeeId: number = 1;
+  @Input() employee!: Employee;
 
   today: string = '';
 

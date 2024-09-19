@@ -1,9 +1,22 @@
 <div *ngIf="reservations.length > 0; else noReservations">
     <h2>My Reservations</h2>
     <div *ngFor="let reservation of reservations">
-      <app-reservation
+      <app-reservation *ngIf="reservation.reservationStatus != 'Complete' && reservation.reservationStatus != 'Cancelled'"
         [reservation]="reservation"
-        (onCancel)="cancelReservation(reservation.id)">
+        (onCancel)="cancelReservation(reservation.id)"
+        (onDeskChange)="changeDesk($event.reservation, $event.deskId)">
+      </app-reservation>
+    </div>
+    <h2>Past Reservations</h2>
+    <div *ngFor="let reservation of reservations">
+      <app-reservation *ngIf="reservation.reservationStatus === 'Complete'"
+        [reservation]="reservation">
+      </app-reservation>
+    </div>
+    <h2>Cancelled Reservations</h2>
+    <div *ngFor="let reservation of reservations">
+      <app-reservation *ngIf="reservation.reservationStatus === 'Cancelled'"
+        [reservation]="reservation">
       </app-reservation>
     </div>
   </div>

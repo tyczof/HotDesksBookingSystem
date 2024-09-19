@@ -6,6 +6,15 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .corner-container {
+        h5 {
+            margin-bottom: 0%;
+        }
+        text-align: center;
+    }
+    app-mode-switch {
+        margin-right: auto;
+    }
     app-role-switch {
         margin-left: auto;
     }

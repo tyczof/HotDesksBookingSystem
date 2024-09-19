@@ -10,6 +10,10 @@ export class ReservationComponent {
   @Input() reservation!: Reservation;
   @Output() onCancel = new EventEmitter<number>();
   @Output() onModify = new EventEmitter<number>();
+  @Output() onDeskChange = new EventEmitter<{ reservation: Reservation, deskId: number }>();
+
+
+  modifying = false;
 
   get isUpcoming(): boolean {
     return this.reservation.reservationStatus === 'Upcoming';
@@ -17,6 +21,10 @@ export class ReservationComponent {
 
   get isCancelled(): boolean {
     return this.reservation.reservationStatus === 'Cancelled';
+  }
+
+  get isComplete(): boolean {
+    return this.reservation.reservationStatus === 'Complete';
   }
 
   get canModifyOrCancel(): boolean {
@@ -29,9 +37,15 @@ export class ReservationComponent {
     }
   }
 
-  modify(): void {
-    if (this.isUpcoming && !this.isCancelled) {
-      this.onModify.emit(this.reservation.id);
-    }
+  changeDesk(): void {
+    this.modifying = true;
+  }
+
+  deskChanged(deskId: number): void {
+    this.onDeskChange.emit({ reservation: this.reservation, deskId });
+    this.modifying = false;
+  }
+  deskChangeActionCancelled(): void {
+    this.modifying = false;
   }
 }

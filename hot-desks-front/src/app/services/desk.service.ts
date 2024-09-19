@@ -11,7 +11,7 @@ export class DeskService {
 
   constructor(private http: HttpClient) {}
 
-  getDesks(startDate: string, endDate: string, locationId: number): Observable<Desk[]> {
+  getDesks(startDate: string, endDate: string, locationId: number = 0): Observable<Desk[]> {
     let params = new HttpParams()
       .set('startDate', startDate)
       .set('endDate', endDate);
@@ -19,7 +19,6 @@ export class DeskService {
     if (locationId) {
       params = params.set('locationId', locationId);
     }
-    console.log(locationId);
     return this.http.get<Desk[]>(this.apiUrl + '/available', { params });
   }
   

@@ -38,7 +38,7 @@ namespace HotDesks.Services
                     ReservationStatus = r.GetReservationStatus(false)
                 })
                 .ToList();
-            return reservationDtos.OrderBy(r => r.ReservationStatus);
+            return reservationDtos.OrderBy(r => r.ReservationStatus).ThenBy(r => r.StartDate);
         }
 
         public Reservation GetById(int id)
