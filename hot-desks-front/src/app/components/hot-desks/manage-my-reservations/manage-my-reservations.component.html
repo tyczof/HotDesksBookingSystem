@@ -1,1 +1,14 @@
-<p>manage-my-reservations works!</p>
+<div *ngIf="reservations.length > 0; else noReservations">
+    <h2>My Reservations</h2>
+    <div *ngFor="let reservation of reservations">
+      <app-reservation
+        [reservation]="reservation"
+        (onCancel)="cancelReservation(reservation.id)">
+      </app-reservation>
+    </div>
+  </div>
+  
+  <ng-template #noReservations>
+    <p>You have no reservations.</p>
+  </ng-template>
+  

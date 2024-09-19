@@ -1,0 +1,9 @@
+<div class="reservation" *ngIf="!isCancelled">
+    <p>Desk Number: {{ reservation.deskNumber }}</p>
+    <p>Start Date: {{ reservation.startDate | date }}</p>
+    <p>End Date: {{ reservation.endDate | date }}</p>
+    <p>Status: {{ reservation.reservationStatus }}</p>
+    <button [disabled]="!isUpcoming" (click)="cancel()">Cancel Reservation</button>
+    <button [disabled]="!isUpcoming" (click)="modify()">Modify Reservation</button>
+  </div>
+  
