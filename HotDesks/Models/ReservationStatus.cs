@@ -6,6 +6,7 @@ namespace HotDesks.Models
     {
         Complete,
         Ongoing,
+        Tomorrow,
         Upcoming,
         Cancelled
     }
