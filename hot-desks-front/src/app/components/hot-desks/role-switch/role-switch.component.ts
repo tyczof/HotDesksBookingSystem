@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Employee } from '../../../models/employee.model';
 
 @Component({
@@ -7,13 +7,14 @@ import { Employee } from '../../../models/employee.model';
   styleUrls: ['./role-switch.component.css']
 })
 export class RoleSwitchComponent {
-  employee!: Employee;
-  isAdmin = false;
+  @Input() isAdmin!: boolean;
+
+  @Input() employee!: Employee;
 
   @Output() employeeChange = new EventEmitter<number>();
 
   toggleRole() {
-    console.log('Role switched to:', this.isAdmin ? 'Admin' : 'Employee');
+    console.log('Role switched to:', !this.isAdmin ? 'Admin' : 'Employee');
     if (this.isAdmin)
     {
       this.employeeChange.emit(1)
@@ -22,5 +23,6 @@ export class RoleSwitchComponent {
     {
       this.employeeChange.emit(2);
     }
+    this.isAdmin = !this.isAdmin
   }
 }

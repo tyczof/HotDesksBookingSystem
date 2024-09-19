@@ -1,3 +1,6 @@
-<button   (click)="changeScreen()">
-    {{ isActive ? 'Search desks' : 'Manage my reservations' }}
+<button (click)="changeScreenMyReservations()">
+    {{ isMyReservationsActive || isAdminManagementActive ? 'Back to search desks' : 'Manage my reservations' }}
 </button>
+<ng-container *ngIf="activeScreen === 'main' && isAdmin">
+    <button (click)="changeScreenAdminManagement()">Manage Locations and Desks</button>
+</ng-container>

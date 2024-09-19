@@ -30,6 +30,7 @@ namespace HotDesks.Services
                         LocationId = d.LocationId,
                         LocationName = d.Location.Name,
                         IsReservedOnDate = d.CheckIfReservedOnDate(startDate, endDate),
+                        Reservations = d.GetReservationsInPeriod(startDate, endDate)
                     })
                     .ToList();
             if (locationId > 0)

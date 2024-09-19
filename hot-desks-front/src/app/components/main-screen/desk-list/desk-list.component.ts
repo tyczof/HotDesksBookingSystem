@@ -41,7 +41,7 @@ export class DeskListComponent implements OnInit {
   loadDesks(): void {
     const startDateTime = this.formatDateTime(this.startDate, this.startTime);
     const endDateTime = this.formatDateTime(this.endDate, this.endTime);
-    console.log(this.locationId)
+
     this.deskService.getDesks(startDateTime, endDateTime, this.locationId).subscribe(
       (desks: Desk[]) => {
         this.desks = desks;

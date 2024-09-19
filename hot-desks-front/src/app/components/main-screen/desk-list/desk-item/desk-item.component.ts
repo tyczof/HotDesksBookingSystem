@@ -1,16 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Desk } from '../../../../models/desk.model';
 import { ReservationService } from '../../../../services/reservation.service'; // Serwis do rezerwacji
 import { Reservation } from '../../../../models/reservation.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Employee } from '../../../../models/employee.model';
+import { EmployeeService } from '../../../../services/employee.service';
 
 @Component({
   selector: 'app-desk-item',
   templateUrl: './desk-item.component.html',
   styleUrls: ['./desk-item.component.css']
 })
-export class DeskItemComponent {
+export class DeskItemComponent implements OnInit {
   @Input() desk!: Desk;
   @Input() employee!: Employee;
   @Input() startDate!: string; 
@@ -18,7 +19,28 @@ export class DeskItemComponent {
 
   errorMessage: string = '';
 
-  constructor(private reservationService: ReservationService) {}
+  constructor(
+    private reservationService: ReservationService,
+    private employeeService: EmployeeService
+  ) {}
+
+  ngOnInit(): void {
+    console.log(this.employee.isAdmin)
+    if (this.desk.reservations && this.desk.reservations.length > 0) {
+      this.desk.reservations.forEach(reservation => {
+        if (!reservation.employeeName) {
+          this.employeeService.getEmployee(reservation.employeeId).subscribe({
+            next: (e) => {
+              reservation.employeeName = e.firstName + " " + e.lastName; // Załóżmy, że pełne imię jest w `fullName`
+            },
+            error: (error: HttpErrorResponse) => {
+              this.errorMessage = 'Unable to fetch employee details';
+            }
+          });
+        }
+      });
+    }
+  }
 
   reserveDesk(): void {
 

@@ -14,6 +14,7 @@ import { ManageMyReservationsComponent } from './components/hot-desks/manage-my-
 import { HotDesksComponent } from './components/hot-desks/hot-desks.component';
 import { ReservationComponent } from './components/hot-desks/manage-my-reservations/reservation/reservation.component';
 import { ChangeDeskFormComponent } from './components/hot-desks/manage-my-reservations/change-desk-form/change-desk-form.component';
+import { AdminFormsComponent } from './components/hot-desks/admin-forms/admin-forms.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ChangeDeskFormComponent } from './components/hot-desks/manage-my-reserv
     ManageMyReservationsComponent,
     HotDesksComponent,
     ReservationComponent,
-    ChangeDeskFormComponent
+    ChangeDeskFormComponent,
+    AdminFormsComponent
   ],
   imports: [
     BrowserModule,

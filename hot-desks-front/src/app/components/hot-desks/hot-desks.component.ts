@@ -11,7 +11,9 @@ import { EmployeeService } from '../../services/employee.service';
 })
 export class HotDesksComponent {
   employee!: Employee;
-  isActive = false;
+  employeeName!: string;
+  isAdmin!: boolean;
+  activeScreen = "main";
 
   
   constructor(private employeeService: EmployeeService) {}
@@ -24,6 +26,8 @@ export class HotDesksComponent {
     this.employeeService.getEmployee(employeeId).subscribe(
       (employee) => {
         this.employee = employee;
+        this.employeeName = employee.firstName;
+        this.isAdmin = employee.isAdmin;
       },
       (error) => {
         console.error('Error fetching reservations', error);
@@ -31,8 +35,8 @@ export class HotDesksComponent {
     );
   }
 
-  onModeChange(isActive: boolean) {
-    this.isActive = isActive;
+  onModeChange(activeScreen: string) {
+    this.activeScreen = activeScreen;
   }
 
   onEmployeeChange(newEmployeeId: number): void {

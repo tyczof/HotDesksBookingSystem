@@ -1,3 +1,5 @@
+import { Reservation } from "./reservation.model";
+
 export interface Desk {
     id: number;
     deskNumber: string;
@@ -5,5 +7,6 @@ export interface Desk {
     locationId: number;
     locationName: string;
     isReservedOnDate: boolean;
+    reservations?: Reservation[]
   }
   

@@ -10,13 +10,11 @@ header {
         h5 {
             margin-bottom: 0%;
         }
-        text-align: center;
+        text-align: center;    
     }
     app-mode-switch {
         margin-right: auto;
     }
-    app-role-switch {
-        margin-left: auto;
-    }
+
 }
 

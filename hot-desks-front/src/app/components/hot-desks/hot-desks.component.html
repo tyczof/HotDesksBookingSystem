@@ -1,18 +1,28 @@
 <div class="main-container">
     <header>
         <h1>Hot Desks Booking System</h1>
-        <app-mode-switch (modeChange)="onModeChange($event)"></app-mode-switch>
+        <app-mode-switch [isAdmin]="isAdmin" (modeChange)="onModeChange($event)"></app-mode-switch>
         <div class="corner-container">
-            <h5>Hello {{employee.firstName}}!</h5>
-            <ng-container *ngIf="!isActive;">
-                <app-role-switch (employeeChange)="onEmployeeChange($event)"></app-role-switch>
+            <h5>Hello {{employeeName}}!</h5>
+            <ng-container *ngIf="activeScreen == 'main'">
+                <app-role-switch [isAdmin]="employee.isAdmin" (employeeChange)="onEmployeeChange($event)"></app-role-switch>
             </ng-container>
         </div>
     </header>
-    <ng-container *ngIf="!isActive; else manageReservations">
-        <app-main-screen [employee]="employee"></app-main-screen>
+    <ng-container [ngSwitch]="activeScreen">
+        <ng-container *ngSwitchCase="'main'">
+            <app-main-screen [employee]="employee"></app-main-screen>
+        </ng-container>
+        <ng-container *ngSwitchCase="'myReservations'">
+            <app-manage-my-reservations [employee]="employee"></app-manage-my-reservations>
+        </ng-container>
+        <ng-container *ngSwitchCase="'adminManagement'">
+            <ng-container *ngIf="employee.isAdmin">
+                <app-admin-forms></app-admin-forms>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+            <p>Invalid screen selected</p>
+        </ng-container>
     </ng-container>
-    <ng-template #manageReservations>
-        <app-manage-my-reservations [employee]="employee"></app-manage-my-reservations>
-    </ng-template>
 </div>
