@@ -1,0 +1,18 @@
+<div class="reservation">
+    <p>Desk Number: {{ reservation.deskNumber }}</p>
+    <p>Start: {{ reservation.startDate | date : "dd-MM-YYY HH:mm" }}</p>
+    <p>End: {{ reservation.endDate | date : "dd-MM-YYY HH:mm"  }}</p>
+    <p>Location: {{reservation.deskLocationName}}</p>
+    <p>Status: {{ reservation.reservationStatus }}</p>
+    <button [disabled]="!isUpcoming" (click)="cancel()">Cancel Reservation</button>
+    <button [disabled]="!isUpcoming" (click)="changeDesk()">Change Desk</button>
+
+    <app-change-desk-form
+    *ngIf="modifying"
+    [reservation]="reservation"
+    [showForm]="modifying"
+    (onDeskChange)="deskChanged($event)"
+    (onActionCancel)="deskChangeActionCancelled()">
+  </app-change-desk-form>
+</div>
+  

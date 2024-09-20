@@ -1,0 +1,36 @@
+<div>
+    <h3>Manage locations</h3>
+    <input [(ngModel)]="newLocationName" placeholder="New location name" />
+    <button (click)="addLocation()">Add location</button>
+  
+    <ul>
+      <li *ngFor="let location of locations">
+        <div class="item-name">{{ location.name }}</div>
+        <div class="buttons">
+        <button (click)="deleteLocation(location.id)">Delete</button>
+        <button (click)="loadDesks(location.id)">Manage Desks</button>
+        </div>
+        <div *ngIf="locationError && selectedLocationId == location.id" class="error">{{ locationError }}</div>
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="selectedLocationId">
+    <h3>Manage desks in location: {{ selectedLocationName }}</h3>
+    <input [(ngModel)]="newDeskNumber" placeholder="New desk number" />
+    <button (click)="addDesk()">Add desk</button>
+  
+    <ul>
+      <li *ngFor="let desk of desks">
+        <div class="item-name">Desk {{ desk.deskNumber }} - Available: {{ desk.isAvailable }}</div>
+        <div class="buttons">
+        <button (click)="toggleDeskAvailability(desk)">
+            {{ desk.isAvailable ? 'Make Unavailable' : 'Make Available' }}
+          </button>
+        <button (click)="deleteDesk(desk.id)">Delete</button>
+        </div>
+        <div *ngIf="deskError && selectedDeskId == desk.id" class="error">{{ deskError }}</div>
+      </li>
+    </ul>
+  </div>
+  

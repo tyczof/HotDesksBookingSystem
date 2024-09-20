@@ -1,0 +1,17 @@
+<div class="desk-card">
+    <h3>Desk {{ desk.deskNumber }}</h3>
+    <p>Location: {{ desk.locationName }}</p>
+    <p>Status: {{ desk.isReservedOnDate || !desk.isAvailable ? 'Unavailable' : 'Available' }}</p>
+    <ng-container *ngIf="employee.isAdmin && desk.isReservedOnDate && desk.reservations && desk.reservations.length > 0">
+      <p >Reserved by:</p>
+      <ul>
+          <li *ngFor="let reservation of desk.reservations">
+              {{ reservation.employeeName }} {{ reservation.startDate | date : "dd-MM-YYY HH:mm" }} to {{ reservation.endDate | date : "dd-MM-YYY HH:mm" }}
+          </li>
+      </ul>
+    </ng-container>
+    <button (click)="reserveDesk()" [disabled]="desk.isReservedOnDate || !desk.isAvailable">Reserve</button>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
+
+  

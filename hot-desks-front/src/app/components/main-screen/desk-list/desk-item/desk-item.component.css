@@ -1,0 +1,92 @@
+/* .desk-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  .error-message {
+    color: red;
+    font-weight: bold;
+  }
+  
+   */
+
+
+   .desk-card {
+    border: 1px solid #ddd; /* Delikatniejsza ramka */
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Większy cień dla lepszego efektu */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: flex-start;
+    background-color: #fff; /* Tło kafelka na biało */
+    max-width: 100%; /* Maksymalna szerokość 100% kontenera */
+    height: 90%; /* Pełna wysokość kontenera */
+    box-sizing: border-box;
+  }
+  
+  .desk-card h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.2rem;
+  }
+  
+  .desk-card p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
+  
+  /* .desk-card ul {
+    padding-left: 20px;
+    margin: 0;
+    font-size: 0.9rem;
+  } */
+  .desk-card ul {
+    padding-left: 20px; /* Wcięcie dla listy */
+    margin: 0; /* Usuń margines listy */
+    font-size: 0.9rem; /* Mniejsza czcionka dla listy rezerwacji */
+    max-height: 100px; /* Maksymalna wysokość dla listy rezerwacji */
+    overflow-y: auto; /* Dodaje pionowy pasek przewijania, jeśli lista jest zbyt długa */
+  }
+  
+  .desk-card li {
+    margin-bottom: 5px;
+  }
+  
+  .desk-card button {
+    background-color: #ccc; /* Szary kolor przycisku */
+    color: black; /* Kolor tekstu na przycisku */
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: auto;
+  }
+  
+  .desk-card button:hover {
+    background-color: #bbb; /* Jaśniejszy szary po najechaniu */
+  }
+  
+  .desk-card button:disabled {
+    background-color: #eee; /* Bardziej szary kolor przycisku, gdy jest wyłączony */
+    cursor: not-allowed; /* Zmieniony kursor dla wyłączonego przycisku */
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px; /* Odsunięcie błędu od innych elementów */
+  }
+  

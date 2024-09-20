@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using HotDesks.DTOs;
+using Microsoft.IdentityModel.Tokens;
+using System.Text.Json.Serialization;
 
 namespace HotDesks.Models
 {
@@ -28,7 +30,30 @@ namespace HotDesks.Models
         }
         public bool CheckIfReservedOnDate(DateTime startDate, DateTime endDate)
         {
-            return Reservations.Any(r => r.StartDate <= endDate && r.EndDate >= startDate);
+            return Reservations.Where(r => !r.isCancelled).Any(r => r.StartDate <= endDate && r.EndDate >= startDate);
         }
+        public List<ReservationInfoDTO> GetReservationsInPeriod(DateTime startDate, DateTime endDate)
+        {
+            var reservations = Reservations
+                .Where(r => !r.isCancelled && r.StartDate <= endDate && r.EndDate >= startDate)
+                .OrderBy(r => r.StartDate)
+                .ToList();
+
+            if (!reservations.IsNullOrEmpty())
+            {
+                return reservations.Select(r => new ReservationInfoDTO
+                    {
+                        Id = r.Id,
+                        DeskId = Id,
+                        DeskNumber = DeskNumber,
+                        EmployeeId = r.EmployeeId,
+                        StartDate = r.StartDate,
+                        EndDate = r.EndDate
+                    })
+                    .ToList();
+            }
+            return [];
+        }
+
     }
 }

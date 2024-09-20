@@ -1,0 +1,38 @@
+<div *ngIf="reservations.length > 0; else noReservations">
+    <h2>My Reservations</h2>
+    <div *ngFor="let reservation of reservations">
+      <app-reservation *ngIf="reservation.reservationStatus != 'Complete' && reservation.reservationStatus != 'Cancelled'"
+        [reservation]="reservation"
+        (onCancel)="cancelReservation(reservation.id)"
+        (onDeskChange)="changeDesk($event.reservation, $event.deskId)">
+      </app-reservation>
+    </div>
+    
+    <h2>Past Reservations</h2>
+    <ng-container *ngIf="hasPastReservations(); else noPastReservations">
+      <div *ngFor="let reservation of reservations">
+        <app-reservation *ngIf="reservation.reservationStatus === 'Complete'"
+          [reservation]="reservation">
+        </app-reservation>
+      </div>
+    </ng-container>
+    <ng-template #noPastReservations>
+      <p>You have no past reservations.</p>
+    </ng-template>
+    
+    <h2>Cancelled Reservations</h2>
+    <ng-container *ngIf="hasCancelledReservations(); else noCancelledReservations">
+      <div *ngFor="let reservation of reservations">
+        <app-reservation *ngIf="reservation.reservationStatus === 'Cancelled'"
+          [reservation]="reservation">
+        </app-reservation>
+      </div>
+    </ng-container>
+    <ng-template #noCancelledReservations>
+      <p>You have no cancelled reservations.</p>
+    </ng-template>
+</div>
+
+<ng-template #noReservations>
+    <p>You have no reservations.</p>
+</ng-template>

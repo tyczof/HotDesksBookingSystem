@@ -1,0 +1,13 @@
+<div class="modify-desk" *ngIf="showForm">
+    <h3>Select a new desk</h3>
+    <select [(ngModel)]="selectedDeskId">
+      <ng-container *ngFor="let desk of availableDesks">
+        <option *ngIf="!desk.isReservedOnDate && desk.isAvailable" [value]="desk.id">
+          Desk {{ desk.deskNumber }} ({{ desk.locationName }})
+        </option>
+      </ng-container>
+    </select>
+    <button (click)="changeDesk()">Confirm</button>
+    <button (click)="cancelAction()">Cancel</button>
+  </div>
+  

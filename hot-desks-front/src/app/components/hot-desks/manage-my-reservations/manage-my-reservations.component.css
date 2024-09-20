@@ -1,0 +1,21 @@
+.reservations-container {
+    padding: 20px;
+  }
+  
+  h2 {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    color: #333;
+    font-family: Arial, sans-serif;
+  }
+  
+  p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
+  
+  .no-reservations {
+    color: #777;
+    font-style: italic;
+  }
+  

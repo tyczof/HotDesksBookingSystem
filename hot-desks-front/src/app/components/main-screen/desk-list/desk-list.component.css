@@ -1,0 +1,24 @@
+.desk-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 5 kolumn */
+    gap: 10px; /* Odstęp między kafelkami */
+    padding: 10px;
+  }
+  
+  .desk-item {
+    background-color: #f5f5f5; /* Tło kafelka */
+    border: 1px solid #ddd; /* Ramka kafelka */
+    border-radius: 5px; /* Zaokrąglenie rogów kafelka */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box; /* Uwzględnia padding w szerokości i wysokości */
+    aspect-ratio: 1 / 1; /* Ustawia kafelki jako kwadratowe */
+  }
+  
+  .desk-item app-desk-item {
+    width: 100%; /* Ustawia szerokość komponentu na 100% szerokości kafelka */
+    height: 100%; /* Ustawia wysokość komponentu na 100% wysokości kafelka */
+  }
+  

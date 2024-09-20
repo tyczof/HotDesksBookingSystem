@@ -17,6 +17,29 @@ namespace HotDesks.Services
         {
             return _context.Reservations.ToList();
         }
+        public IEnumerable<ReservationInfoDTO> GetEmployeeReservations(int employeeId)
+        {
+             var reservationDtos = _context.Reservations
+                .Include(r => r.Employee)
+                .Include(r => r.Desk)
+                .ThenInclude(d => d.Location)
+                .Where(r => r.EmployeeId == employeeId)
+                .Select(r => new ReservationInfoDTO
+                {
+                    Id = r.Id,
+                    DeskId = r.DeskId,
+                    DeskNumber = r.Desk.DeskNumber,
+                    DeskLocationName = r.Desk.Location.Name,
+                    EmployeeId = r.EmployeeId,
+                    EmployeeName = r.Employee.FirstName + " " + r.Employee.LastName,
+                    EmployeeEmail = r.Employee.Email,
+                    StartDate = r.StartDate,
+                    EndDate = r.EndDate,
+                    ReservationStatus = r.GetReservationStatus(false)
+                })
+                .ToList();
+            return reservationDtos.OrderBy(r => r.ReservationStatus).ThenBy(r => r.StartDate);
+        }
 
         public Reservation GetById(int id)
         {
@@ -50,16 +73,17 @@ namespace HotDesks.Services
             if (reservation == null)
                 throw new InvalidOperationException("Reservation not found.");
 
-            if ((reservation.StartDate - DateTime.Now).TotalHours < 24)
-                throw new InvalidOperationException("Cannot change reservation less than 24 hours before.");
+            if (reservation.GetReservationStatus(true) == ReservationStatus.Upcoming)
+            {
+                ConfirmDeskAvailability(reservationDto);
 
-            ConfirmDeskAvailability(reservationDto);
-
-            // Update desk in reservation
-            reservation.DeskId = reservationDto.DeskId;
-            reservation.StartDate = reservationDto.StartDate;
-            reservation.EndDate = reservationDto.EndDate;
-            _context.SaveChanges();
+                // Update desk in reservation
+                reservation.DeskId = reservationDto.DeskId;
+                reservation.StartDate = reservationDto.StartDate;
+                reservation.EndDate = reservationDto.EndDate;
+                _context.SaveChanges();
+            }
+            
         }
 
         public void CancelReservation(int id)
@@ -67,7 +91,7 @@ namespace HotDesks.Services
             var reservation = _context.Reservations.Find(id);
             if (reservation != null)
             {
-                _context.Reservations.Remove(reservation);
+                reservation.CancelReservation();
                 _context.SaveChanges();
             }
         }

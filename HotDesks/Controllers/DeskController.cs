@@ -65,10 +65,10 @@ namespace HotDesks.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut("disabledesk/{id}")]
-        public IActionResult DisableDesk(int id)
+        [HttpPut("changeavailability/{id}")]
+        public IActionResult ToggleDeskAvailability(int id)
         {
-            _deskService.DisableDesk(id);
+            _deskService.ToggleDeskAvailability(id);
             return Ok();
         }
     }
