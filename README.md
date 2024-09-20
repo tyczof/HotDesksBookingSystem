@@ -34,30 +34,43 @@ The solution file `HotDesks.sln` is located in the root folder.
     ```bash
     dotnet restore
     ```
-4. Configure the database connection in `appsettings.json`.
-5. Apply database migrations:
+4. Install Entity Framework Core tools:
+    ```bash
+    dotnet tool install --global dotnet-ef
+    ```
+5. Configure the database connection in `appsettings.json`.
+6. Navigate to the Backend directory:
+    ```bash
+    cd HotDesks
+    ```
+7. Apply database migrations:
     ```bash
     dotnet ef database update
     ```
-6. Run the API:
+8. Run the API:
     ```bash
     dotnet run
     ```
 
 ### Frontend
-1. Navigate to the frontend directory:
+1. Make sure you have Node.js installed. You can download it [here](https://nodejs.org/).
+2. Install Angular CLI globally if not already installed:
     ```bash
-    cd HotDesks/hot-desks-front
+    npm install -g @angular/cli
     ```
-2. Install dependencies:
+3. Navigate from root to the frontend directory:
+    ```bash
+    cd hot-desks-front
+    ```
+4. Install dependencies:
     ```bash
     npm install
     ```
-3. Start the Angular application:
+5. Start the Angular application:
     ```bash
     ng serve
     ```
-4. Open your browser and go to `http://localhost:4200`.
+6. Open your browser and go to `http://localhost:4200`.
 
 ## Usage
 
