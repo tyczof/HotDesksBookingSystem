@@ -13,14 +13,14 @@ namespace HotDesks.Models
         public Employee Employee { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public bool isCancelled {  get; set; }
+        public bool IsCancelled {  get; set; }
 
         public ReservationStatus GetReservationStatus(bool throwExceptions = true)
         {
             bool isTomorrow;
             CheckIfLessThan24hToStartDate(out isTomorrow, throwExceptions);
 
-            if (isCancelled)
+            if (IsCancelled)
             {
                 return ReservationStatus.Cancelled;
             }
@@ -47,7 +47,7 @@ namespace HotDesks.Models
             CheckIfLessThan24hToStartDate(out isTomorrow);
             if (!isTomorrow)   
             {
-                isCancelled = true;
+                IsCancelled = true;
             }
         }
         private void CheckIfLessThan24hToStartDate(out bool success, bool throwExceptions = true)
