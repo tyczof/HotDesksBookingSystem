@@ -25,13 +25,12 @@ export class DeskItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.employee.isAdmin)
     if (this.desk.reservations && this.desk.reservations.length > 0) {
       this.desk.reservations.forEach(reservation => {
         if (!reservation.employeeName) {
           this.employeeService.getEmployee(reservation.employeeId).subscribe({
             next: (e) => {
-              reservation.employeeName = e.firstName + " " + e.lastName; // Załóżmy, że pełne imię jest w `fullName`
+              reservation.employeeName = e.firstName + " " + e.lastName;
             },
             error: (error: HttpErrorResponse) => {
               this.errorMessage = 'Unable to fetch employee details';
@@ -43,10 +42,10 @@ export class DeskItemComponent implements OnInit {
   }
 
   reserveDesk(): void {
-
+    const deskId = this.desk.id !== undefined ? this.desk.id : 0;
     if (!this.desk.isReservedOnDate) {
       const reservation: Reservation = {
-        deskId: this.desk.id,
+        deskId: deskId,
         employeeId: this.employee.id,
         startDate: new Date(this.startDate),
         endDate: new Date(this.endDate)

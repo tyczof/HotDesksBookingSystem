@@ -18,6 +18,14 @@ export class ManageMyReservationsComponent implements OnInit {
     this.loadReservations();
   }
 
+  hasPastReservations(): boolean {
+    return this.reservations.some(reservation => reservation.reservationStatus === 'Complete');
+  }
+  
+  hasCancelledReservations(): boolean {
+    return this.reservations.some(reservation => reservation.reservationStatus === 'Cancelled');
+  }  
+
   loadReservations(): void {
     this.reservationService.getReservations(this.employee.id).subscribe(
       (reservations) => {

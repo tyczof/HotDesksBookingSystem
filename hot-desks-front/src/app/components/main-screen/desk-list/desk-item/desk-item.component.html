@@ -10,8 +10,7 @@
           </li>
       </ul>
     </ng-container>
-    <button (click)="reserveDesk()" [disabled]="desk.isReservedOnDate">Reserve</button>
-    <!-- Wyświetlamy błąd, jeśli istnieje -->
+    <button (click)="reserveDesk()" [disabled]="desk.isReservedOnDate || !desk.isAvailable">Reserve</button>
     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div>
 

@@ -1,12 +1,12 @@
 import { Reservation } from "./reservation.model";
 
 export interface Desk {
-    id: number;
+    id?: number;
     deskNumber: string;
     isAvailable: boolean;
     locationId: number;
-    locationName: string;
-    isReservedOnDate: boolean;
+    locationName?: string;
+    isReservedOnDate?: boolean;
     reservations?: Reservation[]
   }
   

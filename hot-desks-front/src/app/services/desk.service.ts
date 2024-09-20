@@ -21,5 +21,16 @@ export class DeskService {
     }
     return this.http.get<Desk[]>(this.apiUrl + '/available', { params });
   }
-  
+
+  addDesk(desk: Desk): Observable<Desk> {
+    return this.http.post<Desk>(`${this.apiUrl}`, desk);
+  }
+
+  deleteDesk(id?: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  toggleDeskAvailability(id?: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/changeavailability/${id}`, {});
+  }
 }

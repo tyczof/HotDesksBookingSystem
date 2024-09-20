@@ -81,7 +81,7 @@ namespace HotDesks.Services
                 }
                 else
                 {
-                    throw new InvalidOperationException("Cannot remove desk if desk have an upcoming reservation.");
+                    throw new InvalidOperationException("Cannot remove desk if desk has an upcoming reservation.");
                 }
 
             }
@@ -90,12 +90,12 @@ namespace HotDesks.Services
                 throw new InvalidOperationException("Desk does not exist.");
             }
         }
-        public void DisableDesk(int id)
+        public void ToggleDeskAvailability(int id)
         {
             var desk = _context.Desks.Find(id);
             if (desk != null)
             {
-                desk.IsAvailable = false;
+                desk.IsAvailable = !desk.IsAvailable;
                 _context.SaveChanges();
             }
         }

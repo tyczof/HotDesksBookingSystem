@@ -1,0 +1,90 @@
+h3 {
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+  }
+  
+  input {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+    color: #555;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+    margin: auto 15px;
+  }
+  
+  li button {
+    margin: auto 10px;
+    width: 130px;
+  }
+
+  .item-name {
+    width: 200px;
+    margin: auto 0;
+  }
+  .buttons {
+    width: 300px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: auto 5px;
+  }
+  
+  button.toggle {
+    background-color: #ff5722;
+  }
+  
+  button.toggle:hover {
+    background-color: #e64a19;
+  }
+  
+  button.delete {
+    background-color: #dc3545;
+  }
+  
+  button.delete:hover {
+    background-color: #c82333;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  div {
+    margin-bottom: 20px;
+  }
+  
+  
