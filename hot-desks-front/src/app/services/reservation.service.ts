@@ -11,8 +11,19 @@ export class ReservationService {
 
   constructor(private http: HttpClient) {}
 
+  getReservations(employeeId: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(`${this.apiUrl}/employee/${employeeId}`);
+  }
+
+  cancelReservation(id?: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/cancel/${id}`, {});
+  }
+
   addReservation(reservation: Reservation): Observable<Reservation> {
     return this.http.post<Reservation>(`${this.apiUrl}`, reservation);
   }
 
+  updateReservationDesk(id: number, updatedReservation: Reservation) {
+    return this.http.put<void>(`${this.apiUrl}/${id}`, updatedReservation);
+  }
 }

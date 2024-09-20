@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DeskService } from '../../../services/desk.service';
 import { Desk } from '../../../models/desk.model';
+import { Employee } from '../../../models/employee.model';
 
 @Component({
   selector: 'app-desk-list',
@@ -14,7 +15,7 @@ export class DeskListComponent implements OnInit {
   @Input() endDate: string = '';
   @Input() endTime: string = '';
   @Input() locationId: number = 0;
-  @Input() employeeId!: number;
+  @Input() employee!: Employee;
 
   constructor(private deskService: DeskService) {}
 
@@ -25,7 +26,6 @@ export class DeskListComponent implements OnInit {
 
   formatDateTime(date: string, time: string): string {
     const fullDate = new Date(`${date}T${time}:00.000Z`); 
-
 
     const year = fullDate.getFullYear();
     const month = String(fullDate.getMonth() + 1).padStart(2, '0');
@@ -41,7 +41,7 @@ export class DeskListComponent implements OnInit {
   loadDesks(): void {
     const startDateTime = this.formatDateTime(this.startDate, this.startTime);
     const endDateTime = this.formatDateTime(this.endDate, this.endTime);
-    console.log(this.locationId)
+
     this.deskService.getDesks(startDateTime, endDateTime, this.locationId).subscribe(
       (desks: Desk[]) => {
         this.desks = desks;

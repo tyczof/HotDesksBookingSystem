@@ -1,5 +1,5 @@
 <div class="desk-container">
   <div *ngFor="let desk of desks" class="desk-item">
-    <app-desk-item [desk]="desk" [startDate]="this.formatDateTime(this.startDate, this.startTime)" [employeeId]="employeeId" [endDate]="this.formatDateTime(this.endDate, this.endTime)"></app-desk-item>
+    <app-desk-item [desk]="desk" [startDate]="this.formatDateTime(this.startDate, this.startTime)" [employee]="employee" [endDate]="this.formatDateTime(this.endDate, this.endTime)"></app-desk-item>
   </div>
 </div>

@@ -8,5 +8,6 @@
         public int LocationId { get; set; }
         public string LocationName { get; set; }
         public bool IsReservedOnDate { get; set; }
+        public List<ReservationInfoDTO> Reservations { get; set; }
     }
 }

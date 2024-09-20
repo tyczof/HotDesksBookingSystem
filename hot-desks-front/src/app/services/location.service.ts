@@ -15,4 +15,16 @@ export class LocationService {
   getLocations(): Observable<Location[]> {
     return this.http.get<Location[]>(`${this.apiUrl}`);
   }
+
+  getLocation(id: number): Observable<Location> {
+    return this.http.get<Location>(`${this.apiUrl}/${id}`);
+  }
+
+  addLocation(location: Location): Observable<Location> {
+    return this.http.post<Location>(`${this.apiUrl}`, location);
+  }
+
+  deleteLocation(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

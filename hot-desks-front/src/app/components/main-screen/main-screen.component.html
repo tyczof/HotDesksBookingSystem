@@ -1,11 +1,6 @@
 <div class="main-container">
-  <header>
-    <h1>Hot Desks Booking System</h1>
-    <app-role-switch (employeeIdChange)="onEmployeeIdChange($event)"></app-role-switch>
-  </header>
-
-  <form (ngSubmit)="searchDesks()">
-    <div>
+  <form (ngSubmit)="searchDesks()" class="search-form">
+    <div class="form-group">
       <label for="startDate">Start Date:</label>
       <input
         type="date"
@@ -16,12 +11,17 @@
       />
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="startTime">Start Time:</label>
-      <input type="time" id="startTime" [(ngModel)]="startTime" name="startTime" />
+      <input
+        type="time"
+        id="startTime"
+        [(ngModel)]="startTime"
+        name="startTime"
+      />
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="endDate">End Date:</label>
       <input
         type="date"
@@ -32,20 +32,34 @@
       />
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="endTime">End Time:</label>
-      <input type="time" id="endTime" [(ngModel)]="endTime" name="endTime" />
+      <input
+        type="time"
+        id="endTime"
+        [(ngModel)]="endTime"
+        name="endTime"
+      />
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="location">Location:</label>
       <select id="location" [(ngModel)]="locationId" name="locationId">
-        <option *ngFor="let location of locations" [value]="location.id">{{ location.name }}</option>
+        <option *ngFor="let location of locations" [value]="location.id">
+          {{ location.name }}
+        </option>
       </select>
     </div>
 
-    <button type="submit">Search Desks</button>
+    <button type="submit" class="submit-button">Search Desks</button>
   </form>
 
-  <app-desk-list [startDate]="startDate" [employeeId]="employeeId" [startTime]="startTime" [endDate]="endDate" [endTime]="endTime" [locationId]="locationId"></app-desk-list>
+  <app-desk-list
+    [startDate]="startDate"
+    [employee]="employee"
+    [startTime]="startTime"
+    [endDate]="endDate"
+    [endTime]="endTime"
+    [locationId]="locationId"
+  ></app-desk-list>
 </div>

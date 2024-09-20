@@ -1,0 +1,52 @@
+.modify-desk {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: #fff;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .modify-desk h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .modify-desk select {
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+  }
+  
+  .modify-desk button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  .modify-desk button:hover {
+    background-color: #0056b3;
+  }
+  
+  .modify-desk button.cancel {
+    background-color: #dc3545;
+  }
+  
+  .modify-desk button.cancel:hover {
+    background-color: #c82333;
+  }
+  
+  .modify-desk button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
